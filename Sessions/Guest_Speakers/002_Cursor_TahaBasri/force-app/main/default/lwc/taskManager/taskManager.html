@@ -1,0 +1,87 @@
+<template>
+    <lightning-card title="Task Manager" icon-name="utility:task">
+        <div class="slds-p-around_medium">
+            <template if:true={isLoading}>
+                <div class="slds-text-align_center slds-p-around_large">
+                    <lightning-spinner alternative-text="Loading tasks" size="medium"></lightning-spinner>
+                </div>
+            </template>
+            <template if:false={isLoading}>
+                <template for:each={groupedTasks} for:item="group">
+                <div key={group.key} class="slds-m-bottom_large">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">{group.label}</h3>
+                    
+                    <template if:true={group.tasks.length}>
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th scope="col" class="slds-text-align_left">
+                                        <div class="slds-truncate" title="Subject">Subject</div>
+                                    </th>
+                                    <th scope="col" class="slds-text-align_center" style="width: 120px;">
+                                        <div class="slds-truncate" title="Priority">Priority</div>
+                                    </th>
+                                    <th scope="col" class="slds-text-align_right" style="width: 150px;">
+                                        <div class="slds-truncate" title="Due Date">Due Date</div>
+                                    </th>
+                                    <th scope="col" class="slds-text-align_center" style="width: 120px;">
+                                        <div class="slds-truncate" title="Actions">Actions</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={group.tasks} for:item="task">
+                                    <tr key={task.id} class="slds-hint-parent">
+                                        <td data-label="Subject" class="slds-text-align_left">
+                                            <div class="slds-truncate" title={task.subject}>{task.subject}</div>
+                                        </td>
+                                        <td data-label="Priority" class="slds-text-align_center">
+                                            <div class="slds-truncate" title={task.priority}>
+                                                <lightning-badge label={task.priority} 
+                                                    class={task.priorityBadgeClass}>
+                                                </lightning-badge>
+                                            </div>
+                                        </td>
+                                        <td data-label="Due Date" class="slds-text-align_right">
+                                            <div class="slds-truncate" title={task.formattedDate}>
+                                                {task.formattedDate}
+                                            </div>
+                                        </td>
+                                        <td data-label="Actions" class="slds-text-align_center">
+                                            <div class="slds-grid slds-grid_align-center">
+                                                <lightning-button-icon 
+                                                    icon-name="utility:forward"
+                                                    alternative-text="Defer to tomorrow"
+                                                    title="Defer to tomorrow"
+                                                    onclick={handleDefer}
+                                                    data-task-id={task.id}
+                                                    variant="border-filled"
+                                                    class="slds-m-right_x-small">
+                                                </lightning-button-icon>
+                                                <lightning-button-icon 
+                                                    icon-name="utility:check"
+                                                    alternative-text="Complete"
+                                                    title="Complete"
+                                                    onclick={handleComplete}
+                                                    data-task-id={task.id}
+                                                    variant="border-filled">
+                                                </lightning-button-icon>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </template>
+                    <template if:false={group.tasks.length}>
+                        <div class="slds-text-align_center slds-p-around_medium">
+                            <p class="slds-text-color_weak">No tasks available in this category.</p>
+                        </div>
+                    </template>
+                </div>
+            </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>
+

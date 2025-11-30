@@ -1,0 +1,4 @@
+---
+alwaysApply: true
+---
+- always use api version 65
