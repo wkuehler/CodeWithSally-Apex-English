@@ -143,7 +143,7 @@ This week you will begin building a **mini Salesforce Project Management App** u
 ---
 
 ## ⭐ **4. Trigger on Project__c**
-For every new Project__c record, automatically create one Project_Task__c child record: 
+1. For every new Project__c record, automatically create one Project_Task__c child record: 
 	- Name: “Kickoff Task”
 	- Due_Date__c = Project.Start_Date__c + 2 days 
 	- Priority__c = Medium
