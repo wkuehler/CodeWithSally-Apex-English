@@ -143,11 +143,11 @@ This week you will begin building a **mini Salesforce Project Management App** u
 ---
 
 ## ⭐ **4. Trigger on Project__c**
-   a. For every new Project__c record, automatically create one Project_Task__c child record: 
-      - Name: “Kickoff Task”
-	   - Due_Date__c = Project.Start_Date__c + 2 days 
-	   - Priority__c = Medium
-	   - Status__c = Not Started
+For every new Project__c record, automatically create one Project_Task__c child record: 
+	- Name: “Kickoff Task”
+	- Due_Date__c = Project.Start_Date__c + 2 days 
+	- Priority__c = Medium
+	- Status__c = Not Started
 
 ---
 ## ⭐ **5. Unit Testing Requirements**
