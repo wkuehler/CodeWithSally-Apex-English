@@ -1,0 +1,59 @@
+<template>
+    <lightning-card title="Cursor AI Demo Component" icon-name="utility:settings">
+        <div class="slds-p-around_medium">
+            <div class="container">
+                <h2 class="header">Data Processing Dashboard</h2>
+                
+                <div class="controls">
+                    <lightning-input 
+                        type="number" 
+                        label="Filter Threshold" 
+                        value={threshold}
+                        onchange={handleThresholdChange}
+                        class="input-control">
+                    </lightning-input>
+                    
+                    <lightning-button 
+                        label="Process Data" 
+                        onclick={processData}
+                        variant="brand"
+                        class="process-btn">
+                    </lightning-button>
+                </div>
+
+                <div class="results-section">
+                    <template if:true={hasResults}>
+                        <div class="stats-grid">
+                            <div class="stat-card" style={statCardStyle1}>
+                                <div class="stat-value">{processedCount}</div>
+                                <div class="stat-label">Processed</div>
+                            </div>
+                            <div class="stat-card" style={statCardStyle2}>
+                                <div class="stat-value">{filteredCount}</div>
+                                <div class="stat-label">Filtered</div>
+                            </div>
+                            <div class="stat-card" style={statCardStyle3}>
+                                <div class="stat-value">{averageValue}</div>
+                                <div class="stat-label">Average</div>
+                            </div>
+                        </div>
+
+                        <div class="data-list" style="color: var(--sally-primary-color);">
+                            <template for:each={displayItems} for:item="item">
+                                <div key={item.id} class="data-item" style={getItemStyle(item)}>
+                                    <span class="item-id">{item.id}</span>
+                                    <span class="item-value">{item.value}</span>
+                                    <span class="item-status">{item.status}</span>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    <template if:false={hasResults}>
+                        <p class="no-data">No data to display. Click "Process Data" to begin.</p>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>
+
