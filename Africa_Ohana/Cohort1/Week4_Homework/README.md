@@ -103,9 +103,9 @@ Target coverage: **75%+**, but correctness is more important than numbers.
 
 To strengthen SOQL, SOSL, and custom Apex class skills, you may add a custom search feature.
 
-### add Search Utility Class
+### Create New Search Utility Class
 
-### add 1st Method to this Apex class 
+### Add 1st Method to this Apex class 
 - Purpose : to Query Project Tasks that matches a certain status filter and include Project details. 
 - Method return type : List of Project Tasks 
 - Parameter: Status Filter as String
@@ -129,6 +129,8 @@ public class SearchResultWrapper {
     public String additionalInfo;
 }
 ```
+
+### Make sure to write your Test Class for this Utility class and methods.
 
 You will demo these methods live in the Developer Console.
 
