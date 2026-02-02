@@ -1,0 +1,37 @@
+Build a Salesforce Lightning Web Component designed to be used inside Screen Flows.
+
+The component must be reusable, Flow-safe, and configurable entirely through Flow properties.
+
+- INPUT PROPERTIES: 
+ The component must accept the following input properties:
+  - objectApiName (String)  : The API name of the object that owns the picklist field.
+  - fieldApiName (String) : The API name of the picklist field.
+  - recordTypeIdentifier (String): An identifier used to resolve the Record Type (record type label, or record type Id). This recordTypeIdentifier will determine the valid picklist values.The value of recordTypeIdentifier will be provided by the Flow builder, not the end user.
+  - required (Boolean) : Determines whether the picklist selection is required at runtime.
+  - labelOverride (String, optional) : If provided, this value must be used as the field label shown in the UI. If not provided, the component should fall back to the field’s default label.
+
+- BEHAVIOR
+  - Resolve the Record Type Id dynamically using the provided recordTypeIdentifier and objectApiName.
+  - Retrieve valid picklist values for the specified field and record type 
+  - Render the picklist values using Salesforce Lightning web component
+  - The end user must NOT select or see the record type.
+
+- REQUIRED Field behaviour: 
+  - If required = true: 
+    - Enforce selection.
+    - Show a validation error when no value is selected.
+  - If required = false:
+    - Allow an empty selection.
+    - Required behavior must be controlled entirely by the Flow configuration, not by object metadata.
+
+- OUTPUT:  Output the selected picklist value back to the Flow as an @api property.
+
+- CONSTRAINTS
+  - The component must be safe for use in Screen Flows.
+  - It must not rely on Dynamic Forms.
+  - It must not assume the default record type.
+  - The record type is provided as configuration, not chosen on screen.
+
+- DELIVERABLES Provide: 
+  - LWC component called genericRecordTypePicklist 
+  - No need for any apex classes
