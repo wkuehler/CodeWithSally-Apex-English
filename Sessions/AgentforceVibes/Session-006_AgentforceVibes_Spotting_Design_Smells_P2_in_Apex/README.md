@@ -37,25 +37,6 @@ This mirrors how teams actually work:
 
 ---
 
-## 📂 Folder Structure
-Session-006_AgentforceVibes_Spotting_Design_Smells_P2_in_Apex
-│
-├── categories/
-│   ├── design_smell.md
-│   ├── platform_risk.md
-│   ├── communication_smells.md
-│   └── team_process.md
-│
-├── output_format/
-│   └── format.md
-│
-├── workflows/
-│   └── code_review.md
-│
-└── README.md
-
----
-
 ## 📁 Categories
 
 The `categories` folder contains **individual Markdown files** describing each review category.
