@@ -119,7 +119,6 @@ Every Screen Flow starts with this structure:
         <fieldText>Name</fieldText>
         <fieldType>InputField</fieldType>
         <isRequired>true</isRequired>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
     </fields>
     <showFooter>true</showFooter>
     <showHeader>true</showHeader>
@@ -244,7 +243,7 @@ Every Screen Flow starts with this structure:
 ### Pattern 2: Multi-Step Wizard
 **Use case:** Guided process across multiple screens
 **Flow:** Screen 1 (allowBack=false) → Screen 2 (allowBack=true) → ... → Create Records → Confirmation
-**Key:** Set `allowBack>true` on screens 2+, use `storeOutputAutomatically` on all inputs
+**Key:** Set `allowBack=true` on screens 2+, do NOT use `storeOutputAutomatically` on screen input fields
 
 ### Pattern 3: Record Lookup and Display
 **Use case:** Query and display records (datatable, detail view)
@@ -272,7 +271,7 @@ Every Screen Flow starts with this structure:
 2. **Connectors are mandatory:** Every element in the flow path must have a `<connector>` to the next element. The only exception is a terminal screen (flow ends there).
 3. **faultConnectors:** Always add `<faultConnector>` on `recordCreates`, `recordUpdates`, `recordDeletes`, `recordLookups`, and `actionCalls`
 4. **locationX/locationY:** Required on all elements. Use `176` for the main path X, `440` for fault path X. Increment Y by ~120 per element.
-5. **storeOutputAutomatically:** Set to `true` on screen input fields and record operations. This auto-creates output variables.
+5. **storeOutputAutomatically:** Set to `true` ONLY on record operations (`recordCreates`, `recordUpdates`, etc.). DO NOT use on screen fields with `fieldType` of `InputField` or `DropdownBox` - it will cause deployment failures.
 6. **XML namespace:** Always `xmlns="http://soap.sforce.com/2006/04/metadata"` on the `<Flow>` root
 7. **HTML in DisplayText:** Must be HTML-entity-encoded (`&lt;p&gt;` not `<p>`)
 8. **File path:** `force-app/main/default/flows/{Flow_API_Name}.flow-meta.xml`
