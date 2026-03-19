@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    EXAMPLE: Multi-Step Data Entry Screen Flow
+    Pattern: Input Screen → Validate → Create Records → Confirmation
+
+    This flow collects Account and Contact information across two screens,
+    validates the data, creates both records in a single transaction,
+    and navigates to the new Account record.
+
+    Use this as a reference for:
+    - Multi-screen navigation with allowBack
+    - RegionContainer for two-column layouts
+    - DropdownBox with static choices
+    - Decision element for validation
+    - RecordCreate with faultConnector for error handling
+    - Assignment to store created record IDs
+    - ActionCall for lightning:navigation
+    - DisplayText for success/error messaging
+-->
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <description>Collects Account and Contact data across two screens, creates both records, and navigates to the Account page. Rolls back on error.</description>
+    <environments>Default</environments>
+    <interviewLabel>New Account and Contact {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>New Account and Contact</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <start>
+        <locationX>176</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Account_Info_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+
+    <!-- ======================== -->
+    <!-- CHOICES                  -->
+    <!-- ======================== -->
+
+    <choices>
+        <name>Choice_Technology</name>
+        <choiceText>Technology</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Technology</stringValue>
+        </value>
+    </choices>
+
+    <choices>
+        <name>Choice_Finance</name>
+        <choiceText>Financial Services</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Finance</stringValue>
+        </value>
+    </choices>
+
+    <choices>
+        <name>Choice_Healthcare</name>
+        <choiceText>Healthcare</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Healthcare</stringValue>
+        </value>
+    </choices>
+
+    <choices>
+        <name>Choice_Other</name>
+        <choiceText>Other</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Other</stringValue>
+        </value>
+    </choices>
+
+    <!-- ======================== -->
+    <!-- SCREENS                  -->
+    <!-- ======================== -->
+
+    <!-- Screen 1: Account Information -->
+    <screens>
+        <name>Account_Info_Screen</name>
+        <label>Account Information</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Contact_Info_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Account_Header</name>
+            <fieldType>DisplayText</fieldType>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Enter Account Details&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Provide the company information below.&lt;/p&gt;</fieldText>
+        </fields>
+        <fields>
+            <name>Account_Fields_Section</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Account_Left_Column</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Input_AccountName</name>
+                    <dataType>String</dataType>
+                    <fieldText>Account Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>Input_Industry</name>
+                    <choiceReferences>Choice_Technology</choiceReferences>
+                    <choiceReferences>Choice_Finance</choiceReferences>
+                    <choiceReferences>Choice_Healthcare</choiceReferences>
+                    <choiceReferences>Choice_Other</choiceReferences>
+                    <dataType>String</dataType>
+                    <fieldText>Industry</fieldText>
+                    <fieldType>DropdownBox</fieldType>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Account_Right_Column</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Input_Phone</name>
+                    <dataType>String</dataType>
+                    <fieldText>Phone</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <fields>
+                    <name>Input_Website</name>
+                    <dataType>String</dataType>
+                    <fieldText>Website</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>Input_Description</name>
+            <dataType>String</dataType>
+            <fieldText>Description</fieldText>
+            <fieldType>LargeTextArea</fieldType>
+            <isRequired>false</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <!-- Screen 2: Contact Information -->
+    <screens>
+        <name>Contact_Info_Screen</name>
+        <label>Contact Information</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Create_Account</targetReference>
+        </connector>
+        <fields>
+            <name>Contact_Header</name>
+            <fieldType>DisplayText</fieldType>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;Primary Contact&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Enter the primary contact for &lt;b&gt;{!Input_AccountName}&lt;/b&gt;.&lt;/p&gt;</fieldText>
+        </fields>
+        <fields>
+            <name>Contact_Fields_Section</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Contact_Left_Column</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Input_FirstName</name>
+                    <dataType>String</dataType>
+                    <fieldText>First Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Contact_Right_Column</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Input_LastName</name>
+                    <dataType>String</dataType>
+                    <fieldText>Last Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>Input_Email</name>
+            <dataType>String</dataType>
+            <fieldText>Email</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Input_Title</name>
+            <dataType>String</dataType>
+            <fieldText>Title</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>false</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <!-- Success Screen -->
+    <screens>
+        <name>Success_Screen</name>
+        <label>Account Created</label>
+        <locationX>176</locationX>
+        <locationY>758</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Success_Message</name>
+            <fieldType>DisplayText</fieldType>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(27, 94, 32);&quot;&gt;&lt;b&gt;Account and Contact created successfully!&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Account: &lt;b&gt;{!Input_AccountName}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Contact: &lt;b&gt;{!Input_FirstName} {!Input_LastName}&lt;/b&gt;&lt;/p&gt;</fieldText>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <!-- Error Screen -->
+    <screens>
+        <name>Error_Screen</name>
+        <label>Error</label>
+        <locationX>440</locationX>
+        <locationY>518</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Try Again</backButtonLabel>
+        <connector>
+            <targetReference>Account_Info_Screen</targetReference>
+        </connector>
+        <fields>
+            <name>Error_Message</name>
+            <fieldType>DisplayText</fieldType>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(194, 57, 52);&quot;&gt;&lt;b&gt;An error occurred&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Could not create the records. Please check your inputs and try again.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Error:&lt;/b&gt; {!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <!-- ======================== -->
+    <!-- RECORD OPERATIONS        -->
+    <!-- ======================== -->
+
+    <recordCreates>
+        <name>Create_Account</name>
+        <label>Create Account</label>
+        <locationX>176</locationX>
+        <locationY>398</locationY>
+        <connector>
+            <targetReference>Store_Account_ID</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Error_Screen</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>Input_AccountName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Industry</field>
+            <value>
+                <elementReference>Input_Industry</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Phone</field>
+            <value>
+                <elementReference>Input_Phone</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Website</field>
+            <value>
+                <elementReference>Input_Website</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Description</field>
+            <value>
+                <elementReference>Input_Description</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+
+    <recordCreates>
+        <name>Create_Contact</name>
+        <label>Create Contact</label>
+        <locationX>176</locationX>
+        <locationY>578</locationY>
+        <connector>
+            <targetReference>Success_Screen</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Rollback_Account</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>Input_FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>Input_LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Email</field>
+            <value>
+                <elementReference>Input_Email</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Title</field>
+            <value>
+                <elementReference>Input_Title</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>varAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+
+    <!-- ======================== -->
+    <!-- ASSIGNMENTS              -->
+    <!-- ======================== -->
+
+    <assignments>
+        <name>Store_Account_ID</name>
+        <label>Store Account ID</label>
+        <locationX>176</locationX>
+        <locationY>488</locationY>
+        <assignmentItems>
+            <assignToReference>varAccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Create_Account</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_Contact</targetReference>
+        </connector>
+    </assignments>
+
+    <!-- ======================== -->
+    <!-- RECORD DELETES (ROLLBACK)-->
+    <!-- ======================== -->
+
+    <recordDeletes>
+        <name>Rollback_Account</name>
+        <label>Delete Account on Contact Error</label>
+        <locationX>440</locationX>
+        <locationY>578</locationY>
+        <connector>
+            <targetReference>Error_Screen</targetReference>
+        </connector>
+        <inputReference>varAccountId</inputReference>
+    </recordDeletes>
+
+    <!-- ======================== -->
+    <!-- VARIABLES                -->
+    <!-- ======================== -->
+
+    <variables>
+        <name>varAccountId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+
+</Flow>

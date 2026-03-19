@@ -1,0 +1,49 @@
+/* Account Manager Component Styles */
+
+/* Card header enhancement */
+.slds-card__header {
+    background: linear-gradient(135deg, var(--slds-g-color-brand-base-10) 0%, var(--slds-g-color-neutral-base-100) 100%);
+}
+
+/* Empty state styling */
+.slds-align_absolute-center {
+    min-height: 200px;
+}
+
+.slds-text-align_center lightning-icon {
+    opacity: 0.6;
+}
+
+/* Modal styling */
+.slds-modal__content {
+    overflow: visible;
+}
+
+/* Datatable container */
+lightning-datatable {
+    --slds-c-datatable-color-background-header: var(--slds-g-color-neutral-base-95);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .slds-card__body_inner {
+        padding: 0 0.5rem;
+    }
+
+    .slds-modal__container {
+        width: 95%;
+        max-width: 95%;
+    }
+}
+
+/* Accessibility - focus states */
+lightning-button:focus {
+    box-shadow: 0 0 0 2px var(--slds-g-color-brand-base-60);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    lightning-button:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,90 @@
+#!/bin/bash
+# PostToolUse Hook — Auto-format with Prettier & lint with ESLint
+#
+# This hook runs after the LLM writes a file. It:
+#   1. Auto-formats the file with Prettier
+#   2. Runs ESLint on JS files in aura/ or lwc/ directories
+#   3. Returns any lint issues as contextModification so the agent can self-correct
+
+# Read the JSON event from stdin
+INPUT=$(cat)
+
+# Extract tool name and file path using printf to avoid echo mangling
+# backslashes or interpreting flags like -n/-e in the JSON payload
+TOOL=$(printf '%s' "$INPUT" | python3 -c "import sys,json; print(json.load(sys.stdin).get('postToolUse',{}).get('tool',''))" 2>/dev/null)
+FILE_PATH=$(printf '%s' "$INPUT" | python3 -c "import sys,json; print(json.load(sys.stdin).get('postToolUse',{}).get('parameters',{}).get('path',''))" 2>/dev/null)
+SUCCESS=$(printf '%s' "$INPUT" | python3 -c "import sys,json; print(json.load(sys.stdin).get('postToolUse',{}).get('success',False))" 2>/dev/null)
+
+# Only act on successful write_to_file calls
+if [ "$TOOL" != "write_to_file" ] || [ "$SUCCESS" != "True" ] || [ -z "$FILE_PATH" ]; then
+    echo '{"cancel": false}'
+    exit 0
+fi
+
+# Check if the file extension is one we care about
+EXT="${FILE_PATH##*.}"
+case "$EXT" in
+    cls|js|html|xml|css|trigger|cmp|page)
+        # Supported extension — continue
+        ;;
+    *)
+        echo '{"cancel": false}'
+        exit 0
+        ;;
+esac
+
+# Check the file actually exists
+if [ ! -f "$FILE_PATH" ]; then
+    echo '{"cancel": false}'
+    exit 0
+fi
+
+CONTEXT_PARTS=()
+
+# --- Step 1: Run Prettier ---
+PRETTIER_OUTPUT=$(npx prettier --write "$FILE_PATH" 2>&1)
+PRETTIER_EXIT=$?
+
+if [ $PRETTIER_EXIT -ne 0 ]; then
+    CONTEXT_PARTS+=("Prettier failed on ${FILE_PATH}:
+${PRETTIER_OUTPUT}")
+fi
+
+# --- Step 2: Run ESLint (only for .js files in aura/ or lwc/ directories) ---
+if [ "$EXT" = "js" ]; then
+    # Use */aura/* and */lwc/* to require a / boundary before the directory name,
+    # preventing false matches on paths like centaura/ or crawlcache/
+    case "$FILE_PATH" in
+        */aura/*|*/lwc/*)
+            ESLINT_OUTPUT=$(npx eslint "$FILE_PATH" 2>&1)
+            ESLINT_EXIT=$?
+
+            if [ $ESLINT_EXIT -ne 0 ]; then
+                CONTEXT_PARTS+=("ESLint found issues in ${FILE_PATH}:
+${ESLINT_OUTPUT}")
+            fi
+            ;;
+    esac
+fi
+
+# --- Build response ---
+if [ ${#CONTEXT_PARTS[@]} -gt 0 ]; then
+    # Join all context parts with blank lines
+    COMBINED=""
+    for part in "${CONTEXT_PARTS[@]}"; do
+        if [ -n "$COMBINED" ]; then
+            COMBINED="${COMBINED}
+
+"
+        fi
+        COMBINED="${COMBINED}${part}"
+    done
+
+    # JSON-encode the combined message via python3.
+    # Use printf '%s' to pass the string without interpreting escapes.
+    ESCAPED=$(printf '%s' "$COMBINED" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read()))")
+
+    echo "{\"cancel\": false, \"contextModification\": $ESCAPED}"
+else
+    echo '{"cancel": false}'
+fi
