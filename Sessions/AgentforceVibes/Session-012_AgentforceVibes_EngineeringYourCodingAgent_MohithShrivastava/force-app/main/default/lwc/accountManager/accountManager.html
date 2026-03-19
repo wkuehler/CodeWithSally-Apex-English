@@ -1,0 +1,194 @@
+<template>
+  <div class="slds-card">
+    <!-- Header Section -->
+    <div class="slds-card__header slds-grid">
+      <header class="slds-media slds-media_center slds-has-flexi-truncate">
+        <div class="slds-media__figure">
+          <lightning-icon
+            icon-name="standard:account"
+            alternative-text="Accounts"
+            size="small"
+          ></lightning-icon>
+        </div>
+        <div class="slds-media__body">
+          <h2 class="slds-card__header-title">
+            <span class="slds-text-heading_small">Account Manager</span>
+          </h2>
+        </div>
+      </header>
+      <div class="slds-no-flex">
+        <lightning-button
+          label="New Account"
+          variant="brand"
+          icon-name="utility:add"
+          onclick="
+            {
+              handleNewAccount;
+            }
+          "
+        >
+        </lightning-button>
+      </div>
+    </div>
+
+    <!-- Card Body -->
+    <div class="slds-card__body slds-card__body_inner">
+      <!-- Loading State -->
+      <template lwc:if="{isLoading}">
+        <div class="slds-align_absolute-center slds-p-around_large">
+          <lightning-spinner
+            alternative-text="Loading accounts..."
+            size="medium"
+          ></lightning-spinner>
+        </div>
+      </template>
+
+      <!-- Error State -->
+      <template lwc:if="{error}">
+        <div
+          class="slds-notify slds-notify_alert slds-alert_error slds-m-bottom_medium"
+        >
+          <lightning-icon
+            icon-name="utility:error"
+            alternative-text="Error"
+            size="x-small"
+            class="slds-m-right_x-small"
+          ></lightning-icon>
+          <h2>{error}</h2>
+        </div>
+      </template>
+
+      <!-- Datatable -->
+      <template lwc:if="{hasAccounts}">
+        <lightning-datatable
+          key-field="Id"
+          data="{accounts}"
+          columns="{columns}"
+          draft-values="{draftValues}"
+          onsave="{handleSave}"
+          onrowaction="{handleRowAction}"
+          hide-checkbox-column
+        >
+        </lightning-datatable>
+      </template>
+
+      <!-- Empty State -->
+      <template lwc:if="{showEmptyState}">
+        <div class="slds-align_absolute-center slds-p-around_large">
+          <div class="slds-text-align_center">
+            <lightning-icon
+              icon-name="standard:account"
+              alternative-text="No Accounts"
+              size="large"
+              class="slds-icon-text-default slds-m-bottom_small"
+            >
+            </lightning-icon>
+            <h3 class="slds-text-heading_small">No Accounts Found</h3>
+            <p class="slds-text-body_regular">
+              Click "New Account" to create one.
+            </p>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+
+  <!-- New Account Modal -->
+  <template lwc:if="{showModal}">
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <button
+          class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+          onclick="
+            {
+              handleCloseModal;
+            }
+          "
+        >
+          <lightning-icon
+            icon-name="utility:close"
+            alternative-text="Close"
+            size="small"
+          ></lightning-icon>
+        </button>
+        <div class="slds-modal__header">
+          <h2 class="slds-text-heading_medium">New Account</h2>
+        </div>
+        <div class="slds-modal__content slds-p-around_medium">
+          <lightning-input
+            label="Account Name"
+            value="{newAccount.Name}"
+            data-field="Name"
+            onchange="
+              {
+                handleFieldChange;
+              }
+            "
+            required
+          >
+          </lightning-input>
+          <lightning-combobox
+            label="Industry"
+            value="{newAccount.Industry}"
+            data-field="Industry"
+            options="{industryOptions}"
+            onchange="
+              {
+                handleFieldChange;
+              }
+            "
+            class="slds-m-top_small"
+          >
+          </lightning-combobox>
+          <lightning-input
+            label="Phone"
+            type="tel"
+            value="{newAccount.Phone}"
+            data-field="Phone"
+            onchange="
+              {
+                handleFieldChange;
+              }
+            "
+            class="slds-m-top_small"
+          >
+          </lightning-input>
+          <lightning-input
+            label="Website"
+            type="url"
+            value="{newAccount.Website}"
+            data-field="Website"
+            onchange="
+              {
+                handleFieldChange;
+              }
+            "
+            class="slds-m-top_small"
+          >
+          </lightning-input>
+        </div>
+        <div class="slds-modal__footer">
+          <lightning-button
+            label="Cancel"
+            onclick="
+              {
+                handleCloseModal;
+              }
+            "
+            class="slds-m-right_small"
+          ></lightning-button>
+          <lightning-button
+            label="Save"
+            variant="brand"
+            onclick="
+              {
+                handleCreateAccount;
+              }
+            "
+          ></lightning-button>
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+</template>

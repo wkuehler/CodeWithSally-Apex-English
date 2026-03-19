@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    EXAMPLE: Record Lookup and Display Screen Flow
+    Pattern: Input → Query Records → Decision → Display/Loop → Action
+
+    This flow accepts a record ID, looks up related contacts,
+    displays them in a datatable, and lets the user select one to edit.
+
+    Use this as a reference for:
+    - Input variables (recordId from record page)
+    - RecordLookup with filters, sorting, and multiple fields
+    - Decision element to check if records were found
+    - ComponentInstance with flowruntime:datatable
+    - Loop with collection processing
+    - Dynamic choice sets
+    - Formula elements
+-->
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <description>Looks up contacts for an Account and displays them in an interactive datatable. Users can view details and update contact information.</description>
+    <environments>Default</environments>
+    <interviewLabel>View Account Contacts {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>View Account Contacts</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <start>
+        <locationX>176</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Account</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+
+    <!-- ======================== -->
+    <!-- FORMULAS                 -->
+    <!-- ======================== -->
+
+    <formulas>
+        <name>Contact_Count_Label</name>
+        <dataType>String</dataType>
+        <expression>&quot;Contacts (&quot; &amp; TEXT({!varContactCount}) &amp; &quot;)&quot;</expression>
+    </formulas>
+
+    <!-- ======================== -->
+    <!-- DYNAMIC CHOICE SETS      -->
+    <!-- ======================== -->
+
+    <dynamicChoiceSets>
+        <name>ContactRoleChoices</name>
+        <dataType>Picklist</dataType>
+        <displayField>LeadSource</displayField>
+        <object>Contact</object>
+        <picklistField>LeadSource</picklistField>
+        <picklistObject>Contact</picklistObject>
+    </dynamicChoiceSets>
+
+    <!-- ======================== -->
+    <!-- RECORD LOOKUPS           -->
+    <!-- ======================== -->
+
+    <recordLookups>
+        <name>Get_Account</name>
+        <label>Get Account</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>true</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Contacts</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Error_Screen</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Industry</queriedFields>
+        <queriedFields>Phone</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+
+    <recordLookups>
+        <name>Get_Contacts</name>
+        <label>Get Related Contacts</label>
+        <locationX>176</locationX>
+        <locationY>278</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Count_Contacts</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Error_Screen</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Contact</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>FirstName</queriedFields>
+        <queriedFields>LastName</queriedFields>
+        <queriedFields>Email</queriedFields>
+        <queriedFields>Phone</queriedFields>
+        <queriedFields>Title</queriedFields>
+        <queriedFields>LeadSource</queriedFields>
+        <sortField>LastName</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+
+    <!-- ======================== -->
+    <!-- ASSIGNMENTS              -->
+    <!-- ======================== -->
+
+    <assignments>
+        <name>Count_Contacts</name>
+        <label>Count Contacts</label>
+        <locationX>176</locationX>
+        <locationY>398</locationY>
+        <assignmentItems>
+            <assignToReference>varContactCount</assignToReference>
+            <operator>AssignCount</operator>
+            <value>
+                <elementReference>Get_Contacts</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Has_Contacts</targetReference>
+        </connector>
+    </assignments>
+
+    <!-- ======================== -->
+    <!-- DECISIONS                -->
+    <!-- ======================== -->
+
+    <decisions>
+        <name>Has_Contacts</name>
+        <label>Has Contacts?</label>
+        <locationX>176</locationX>
+        <locationY>518</locationY>
+        <defaultConnector>
+            <targetReference>No_Contacts_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Contacts</defaultConnectorLabel>
+        <rules>
+            <name>Contacts_Found</name>
+            <label>Contacts Found</label>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varContactCount</leftValueReference>
+                <operator>GreaterThan</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Contact_List_Screen</targetReference>
+            </connector>
+        </rules>
+    </decisions>
+
+    <!-- ======================== -->
+    <!-- SCREENS                  -->
+    <!-- ======================== -->
+
+    <!-- Contact List Screen with Datatable -->
+    <screens>
+        <name>Contact_List_Screen</name>
+        <label>Account Contacts</label>
+        <locationX>50</locationX>
+        <locationY>638</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Account_Info_Display</name>
+            <fieldType>DisplayText</fieldType>
+            <fieldText>&lt;p&gt;&lt;b style=&quot;font-size: 16px;&quot;&gt;{!Get_Account.Name}&lt;/b&gt;&lt;/p&gt;&lt;p&gt;Industry: {!Get_Account.Industry} | Phone: {!Get_Account.Phone}&lt;/p&gt;</fieldText>
+        </fields>
+        <fields>
+            <name>Contact_Datatable</name>
+            <dataTypeMappings>
+                <typeName>T</typeName>
+                <typeValue>Contact</typeValue>
+            </dataTypeMappings>
+            <extensionName>flowruntime:datatable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <elementReference>Contact_Count_Label</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>tableData</name>
+                <value>
+                    <elementReference>Get_Contacts</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>minRowSelection</name>
+                <value>
+                    <numberValue>0.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>maxRowSelection</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <!-- No Contacts Screen -->
+    <screens>
+        <name>No_Contacts_Screen</name>
+        <label>No Contacts Found</label>
+        <locationX>302</locationX>
+        <locationY>638</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>No_Contacts_Message</name>
+            <fieldType>DisplayText</fieldType>
+            <fieldText>&lt;p&gt;&lt;b&gt;{!Get_Account.Name}&lt;/b&gt; has no related contacts.&lt;/p&gt;&lt;p&gt;Create a contact from the Account record page to get started.&lt;/p&gt;</fieldText>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <!-- Error Screen -->
+    <screens>
+        <name>Error_Screen</name>
+        <label>Error</label>
+        <locationX>440</locationX>
+        <locationY>278</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>Error_Display</name>
+            <fieldType>DisplayText</fieldType>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(194, 57, 52);&quot;&gt;&lt;b&gt;Something went wrong&lt;/b&gt;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+
+    <!-- ======================== -->
+    <!-- VARIABLES                -->
+    <!-- ======================== -->
+
+    <!-- Input variable: receives record ID from the record page -->
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+
+    <variables>
+        <name>varContactCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+
+</Flow>
