@@ -1,0 +1,22 @@
+Read: https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/devagent-rules.html
+create a low token but detailed rules file for custom object metadata.
+It is crucial an AI agent knows how to generate metadata XML files for custom objects.
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/customobject.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/actionoverride.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_businessprocess.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_compactlayout.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/customfield.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_fieldset.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_historyretentionpolicy.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_index.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_listview.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/namedfilter.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_picklist.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_profilesearchlayouts.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_recordtype.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_searchlayouts.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_apexsharingreason.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_apexsharingrecalculation.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_validationformulas.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_weblink.htm
+https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_field_types.htm

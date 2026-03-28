@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trailblazer_Standard</fullName>
+    <description>Standard learner: base Trailblazer User access.</description>
+    <label>Trailblazer Standard</label>
+    <permissionSets>Trailblazer_User</permissionSets>
+</PermissionSetGroup>

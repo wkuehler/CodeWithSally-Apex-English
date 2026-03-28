@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trailblazer_Profile_Compact</fullName>
+    <fields>Name</fields>
+    <fields>Current_Rank__c</fields>
+    <fields>Total_Points__c</fields>
+    <fields>Total_Badges__c</fields>
+    <fields>Current_Streak__c</fields>
+    <label>Trailblazer Profile Compact</label>
+</CompactLayout>

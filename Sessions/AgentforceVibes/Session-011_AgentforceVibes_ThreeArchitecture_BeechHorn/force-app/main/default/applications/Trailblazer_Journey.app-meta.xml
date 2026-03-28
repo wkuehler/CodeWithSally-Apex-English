@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#032D60</headerColor>
+    </brand>
+    <description>Trailhead Journey gamified learning workspace.</description>
+    <formFactors>Large</formFactors>
+    <label>Trailblazer Journey</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>Trailblazer_Profile__c</tabs>
+    <tabs>Badge__c</tabs>
+    <tabs>Certification__c</tabs>
+    <tabs>Discovery__c</tabs>
+    <tabs>Study_Group__c</tabs>
+    <tabs>Quest__c</tabs>
+    <tabs>Quest_Enrollment__c</tabs>
+    <tabs>Earned_Achievement__c</tabs>
+    <tabs>XP_Transaction__c</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>
+

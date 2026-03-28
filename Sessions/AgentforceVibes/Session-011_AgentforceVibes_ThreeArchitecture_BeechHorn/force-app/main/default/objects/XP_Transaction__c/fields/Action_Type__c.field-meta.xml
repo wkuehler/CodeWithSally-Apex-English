@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Type__c</fullName>
+    <label>Action Type</label>
+    <type>Text</type>
+    <length>80</length>
+    <inlineHelpText>The logical action that generated this XP (for example Badge_Earned, Cert_Earned, Streak_Day).</inlineHelpText>
+</CustomField>
+

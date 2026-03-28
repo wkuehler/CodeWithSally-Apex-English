@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Point Breaker 1000</label>
+    <protected>false</protected>
+    <values>
+        <field>Achievement_Name__c</field>
+        <value xsi:type="xsd:string">Point Breaker 1000</value>
+    </values>
+    <values>
+        <field>Criteria_Type__c</field>
+        <value xsi:type="xsd:string">Points_Threshold</value>
+    </values>
+    <values>
+        <field>Criteria_Value__c</field>
+        <value xsi:type="xsd:double">1000</value>
+    </values>
+    <values>
+        <field>Icon_URL__c</field>
+        <value xsi:type="xsd:string">https://example.com/achievements/point_breaker_1000.png</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Reach 1,000 Trailhead points.</value>
+    </values>
+</CustomMetadata>

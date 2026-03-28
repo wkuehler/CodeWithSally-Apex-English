@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quest__c</fullName>
+    <label>Quest</label>
+    <type>Lookup</type>
+    <referenceTo>Quest__c</referenceTo>
+    <relationshipLabel>Quest Enrollments</relationshipLabel>
+    <relationshipName>Quest_Enrollment_Quests</relationshipName>
+    <required>true</required>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <inlineHelpText>The quest this enrollment record belongs to.</inlineHelpText>
+</CustomField>

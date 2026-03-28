@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Study_Group_Member__c$Id</field>
+    </columns>
+    <columns>
+        <field>Study_Group_Member__c$Role__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Study Groups Members (Template)</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Study_Groups_with_Members__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Study_Group_Member__c$Joined_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

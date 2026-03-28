@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Trailblazer_Profile__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Trailblazer Profiles with related XP Transactions</description>
+    <label>XP Transactions</label>
+    <join>
+        <outerJoin>true</outerJoin>
+        <relationship>XP_Transactions__r</relationship>
+    </join>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Trailblazer_Profile__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Trailhead_Username__c</field>
+            <table>Trailblazer_Profile__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>XP_Total__c</field>
+            <table>Trailblazer_Profile__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Current_Level__c</field>
+            <table>Trailblazer_Profile__c</table>
+        </columns>
+        <masterLabel>Profile Fields</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Action_Type__c</field>
+            <table>Trailblazer_Profile__c.XP_Transactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>XP_Amount__c</field>
+            <table>Trailblazer_Profile__c.XP_Transactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Transaction_Date__c</field>
+            <table>Trailblazer_Profile__c.XP_Transactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Notes__c</field>
+            <table>Trailblazer_Profile__c.XP_Transactions__r</table>
+        </columns>
+        <masterLabel>XP Transaction Fields</masterLabel>
+    </sections>
+</ReportType>
+

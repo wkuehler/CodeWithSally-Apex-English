@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Certification__c</fullName>
+    <label>Certifications</label>
+    <motif>Custom98: Certificate</motif>
+    <customObject>true</customObject>
+</CustomTab>
+

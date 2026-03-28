@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Has_Open_Slots__c</fullName>
+    <description>Indicates whether the study group still has room for more members.</description>
+    <formula>Member_Count__c &lt; Max_Members__c</formula>
+    <inlineHelpText>Checked when the study group has fewer members than its max capacity.</inlineHelpText>
+    <label>Has Open Slots</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

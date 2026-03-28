@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active_Groups</fullName>
+    <columns>Group_Name__c</columns>
+    <columns>Goal__c</columns>
+    <columns>Start_Date__c</columns>
+    <columns>End_Date__c</columns>
+    <columns>Member_Count__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Is_Active__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Active Groups</label>
+</ListView>

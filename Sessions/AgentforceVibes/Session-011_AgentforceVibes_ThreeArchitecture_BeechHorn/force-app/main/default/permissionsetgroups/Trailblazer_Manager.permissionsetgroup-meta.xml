@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trailblazer_Manager</fullName>
+    <description>Study group leaders: User + Leader permissions. Team profile visibility is granted via Apex-managed sharing.</description>
+    <label>Trailblazer Manager</label>
+    <permissionSets>Trailblazer_User</permissionSets>
+    <permissionSets>Trailblazer_Leader</permissionSets>
+</PermissionSetGroup>

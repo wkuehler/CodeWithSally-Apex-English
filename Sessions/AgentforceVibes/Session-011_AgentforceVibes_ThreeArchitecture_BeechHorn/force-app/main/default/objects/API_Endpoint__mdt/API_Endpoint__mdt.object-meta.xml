@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>API Endpoint</label>
+    <pluralLabel>API Endpoints</pluralLabel>
+    <visibility>Public</visibility>
+    <fields>
+        <fullName>Named_Credential_Name__c</fullName>
+        <label>Named Credential Name</label>
+        <type>Text</type>
+        <length>255</length>
+    </fields>
+    <fields>
+        <fullName>GraphQL_Path__c</fullName>
+        <label>GraphQL Path</label>
+        <type>Text</type>
+        <length>255</length>
+    </fields>
+    <fields>
+        <fullName>Query_Catalog_Static_Resource__c</fullName>
+        <label>Query Catalog Static Resource</label>
+        <type>Text</type>
+        <length>255</length>
+    </fields>
+    <fields>
+        <fullName>Timeout_Ms__c</fullName>
+        <label>Timeout (ms)</label>
+        <type>Number</type>
+        <precision>9</precision>
+        <scale>0</scale>
+    </fields>
+    <fields>
+        <fullName>Page_Size__c</fullName>
+        <label>Badge Page Size</label>
+        <type>Number</type>
+        <precision>5</precision>
+        <scale>0</scale>
+    </fields>
+    <fields>
+        <fullName>Max_Pages__c</fullName>
+        <label>Max Pages Per Sync</label>
+        <type>Number</type>
+        <precision>5</precision>
+        <scale>0</scale>
+    </fields>
+    <fields>
+        <fullName>Max_Retries__c</fullName>
+        <label>Max Retries</label>
+        <type>Number</type>
+        <precision>2</precision>
+        <scale>0</scale>
+    </fields>
+    <fields>
+        <fullName>Is_Active__c</fullName>
+        <label>Is Active</label>
+        <type>Checkbox</type>
+        <defaultValue>true</defaultValue>
+    </fields>
+</CustomObject>
+

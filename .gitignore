@@ -1,2 +1,4 @@
 /.DS_Store
 /.sfdx
+*.DS_Store
+node_modules/

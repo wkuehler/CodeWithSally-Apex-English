@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Top_Streaks</fullName>
+    <columns>Current_Rank__c</columns>
+    <columns>Current_Streak__c</columns>
+    <columns>Longest_Streak__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>Top Streaks</label>
+</ListView>

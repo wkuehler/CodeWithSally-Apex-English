@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expiry_After_Earned</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(NOT(ISBLANK(Date_Expires__c)), Date_Expires__c &lt;= Date_Earned__c)</errorConditionFormula>
+    <errorMessage>Expiry date must be after the date earned.</errorMessage>
+</ValidationRule>

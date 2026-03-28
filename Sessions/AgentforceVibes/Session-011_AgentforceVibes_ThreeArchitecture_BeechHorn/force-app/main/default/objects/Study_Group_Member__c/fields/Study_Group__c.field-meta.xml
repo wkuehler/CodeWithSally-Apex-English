@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Study_Group__c</fullName>
+    <label>Study Group</label>
+    <type>MasterDetail</type>
+    <referenceTo>Study_Group__c</referenceTo>
+    <relationshipLabel>Members</relationshipLabel>
+    <relationshipName>Members</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    <inlineHelpText>The study group this membership belongs to.</inlineHelpText>
+</CustomField>
+

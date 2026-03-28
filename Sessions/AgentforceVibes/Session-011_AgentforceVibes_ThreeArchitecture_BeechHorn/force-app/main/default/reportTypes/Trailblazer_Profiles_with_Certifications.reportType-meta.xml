@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>Trailblazer_Profile__c</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Trailblazer Profiles with related Certifications</description>
+    <label>Trailblazer Profiles with Certifications</label>
+    <join>
+        <outerJoin>true</outerJoin>
+        <relationship>Certifications__r</relationship>
+    </join>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Name</field>
+            <table>Trailblazer_Profile__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Trailhead_Username__c</field>
+            <table>Trailblazer_Profile__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Total_Certifications__c</field>
+            <table>Trailblazer_Profile__c</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>XP_Total__c</field>
+            <table>Trailblazer_Profile__c</table>
+        </columns>
+        <masterLabel>Profile Fields</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Cert_Name__c</field>
+            <table>Trailblazer_Profile__c.Certifications__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Status__c</field>
+            <table>Trailblazer_Profile__c.Certifications__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <field>Date_Earned__c</field>
+            <table>Trailblazer_Profile__c.Certifications__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Maintenance_Due_Date__c</field>
+            <table>Trailblazer_Profile__c.Certifications__r</table>
+        </columns>
+        <masterLabel>Certification Fields</masterLabel>
+    </sections>
+</ReportType>
+

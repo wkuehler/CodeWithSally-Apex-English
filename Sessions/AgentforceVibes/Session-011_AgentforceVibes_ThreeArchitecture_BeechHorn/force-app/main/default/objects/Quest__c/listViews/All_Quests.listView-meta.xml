@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Quests</fullName>
+    <label>All Quests</label>
+    <filterScope>Everything</filterScope>
+    <columns>Quest_Name__c</columns>
+    <columns>Criteria_Type__c</columns>
+    <columns>Criteria_Value__c</columns>
+    <columns>XP_Reward__c</columns>
+</ListView>

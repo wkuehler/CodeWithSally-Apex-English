@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Criteria_Type__c</fullName>
+    <label>Criteria Type</label>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Badge_Count</fullName>
+                <label>Badge_Count</label>
+            </value>
+            <value>
+                <fullName>Trail_Completion</fullName>
+                <label>Trail_Completion</label>
+            </value>
+            <value>
+                <fullName>Cert_Earned</fullName>
+                <label>Cert_Earned</label>
+            </value>
+            <value>
+                <fullName>Custom</fullName>
+                <label>Custom</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <inlineHelpText>The type of completion criteria for this quest.</inlineHelpText>
+</CustomField>

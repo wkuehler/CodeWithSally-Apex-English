@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Trailblazer_Profile__c$Name</field>
+    </columns>
+    <columns>
+        <field>Trailblazer_Profile__c.Badges__r$Badge_Title__c</field>
+    </columns>
+    <columns>
+        <field>Trailblazer_Profile__c.Badges__r$Badge_Type__c</field>
+    </columns>
+    <columns>
+        <field>Trailblazer_Profile__c.Badges__r$Earned_Date__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>My Badge Timeline</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Trailblazer_Profiles_with_Badges__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Trailblazer_Profile__c.Badges__r$Earned_Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
+

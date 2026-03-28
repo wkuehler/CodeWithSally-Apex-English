@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Level 4</label>
+    <protected>false</protected>
+    <values>
+        <field>Level_Number__c</field>
+        <value xsi:type="xsd:double">4</value>
+    </values>
+    <values>
+        <field>XP_Threshold__c</field>
+        <value xsi:type="xsd:double">3500</value>
+    </values>
+    <values>
+        <field>Rank_Name__c</field>
+        <value xsi:type="xsd:string">Adventurer</value>
+    </values>
+    <values>
+        <field>Badge_Icon_URL__c</field>
+        <value xsi:type="xsd:string">https://example.com/levels/level-4.png</value>
+    </values>
+    <values>
+        <field>Description__c</field>
+        <value xsi:type="xsd:string">Unlock the Adventurer rank at 3500 XP.</value>
+    </values>
+</CustomMetadata>

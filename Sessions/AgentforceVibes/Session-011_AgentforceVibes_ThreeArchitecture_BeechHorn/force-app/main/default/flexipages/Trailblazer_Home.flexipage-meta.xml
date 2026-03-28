@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>richTextValue</name>
+                    <value><![CDATA[
+<h2>Welcome</h2>
+<p>Use this home page to track streaks, badges, XP, certifications, and quests.</p>
+<ul>
+  <li><b>Add Discovery</b>: create a Discovery record for useful resources you find.</li>
+  <li><b>Sync Now</b>: open your Trailblazer Profile and use the Sync tab.</li>
+</ul>
+                    ]]></value>
+                </componentInstanceProperties>
+                <componentName>flexipage:richText</componentName>
+                <identifier>trailblazerHomeWelcome</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>reportName</name>
+                    <value>Streak_Leaderboard</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:reportChart</componentName>
+                <identifier>trailblazerHomeStreakChart</identifier>
+            </componentInstance>
+        </itemInstances>
+        <mode>Replace</mode>
+        <name>top</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>home:recentRecordContainer</componentName>
+                <identifier>trailblazerHomeRecentRecords</identifier>
+            </componentInstance>
+        </itemInstances>
+        <mode>Replace</mode>
+        <name>bottomLeft</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>home:heroChart</componentName>
+                <identifier>trailblazerHomeHeroChart</identifier>
+            </componentInstance>
+        </itemInstances>
+        <mode>Replace</mode>
+        <name>bottomRight</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>home:assistant</componentName>
+                <identifier>trailblazerHomeAssistant</identifier>
+            </componentInstance>
+        </itemInstances>
+        <mode>Replace</mode>
+        <name>sidebar</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <masterLabel>Trailblazer Home</masterLabel>
+    <parentFlexiPage>home__desktopDefault</parentFlexiPage>
+    <template>
+        <name>home:desktopTemplate</name>
+    </template>
+    <type>HomePage</type>
+</FlexiPage>
+

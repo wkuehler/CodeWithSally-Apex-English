@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trailblazer_Profile__c</fullName>
+    <label>Trailblazer Profile</label>
+    <type>MasterDetail</type>
+    <referenceTo>Trailblazer_Profile__c</referenceTo>
+    <relationshipName>Earned_Achievements</relationshipName>
+    <relationshipLabel>Earned Achievements</relationshipLabel>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    <inlineHelpText>The Trailblazer profile this achievement belongs to.</inlineHelpText>
+</CustomField>
+

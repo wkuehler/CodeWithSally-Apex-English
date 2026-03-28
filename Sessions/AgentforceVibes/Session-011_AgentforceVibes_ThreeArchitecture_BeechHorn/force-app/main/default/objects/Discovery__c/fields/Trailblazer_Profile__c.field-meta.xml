@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trailblazer_Profile__c</fullName>
+    <label>Trailblazer Profile</label>
+    <type>Lookup</type>
+    <referenceTo>Trailblazer_Profile__c</referenceTo>
+    <relationshipLabel>Discoveries</relationshipLabel>
+    <relationshipName>Discoveries</relationshipName>
+    <inlineHelpText>The Trailblazer profile this discovery is associated with.</inlineHelpText>
+</CustomField>

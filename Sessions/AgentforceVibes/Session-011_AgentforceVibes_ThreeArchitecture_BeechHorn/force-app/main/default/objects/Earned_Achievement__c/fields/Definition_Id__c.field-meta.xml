@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Definition_Id__c</fullName>
+    <label>Definition Id</label>
+    <type>Text</type>
+    <length>255</length>
+    <inlineHelpText>The DeveloperName of the Achievement_Definition__mdt record that defined this achievement.</inlineHelpText>
+</CustomField>
+

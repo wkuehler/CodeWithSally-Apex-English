@@ -1,0 +1,143 @@
+<template>
+    <lightning-card title={title} icon-name="custom:custom18">
+        <template if:true={hasGroup}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <div class="slds-grid slds-wrap slds-gutters">
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                        <div class="slds-text-title_caps">Goal</div>
+                        <div class="slds-text-heading_small">
+                            {goal}
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                        <div class="slds-text-title_caps">Dates</div>
+                        <div class="slds-text-heading_small">
+                            {dateRange}
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                        <div class="slds-text-title_caps">Members</div>
+                        <div class="slds-text-heading_small">
+                            {membersLabel}
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                        <div class="slds-text-title_caps">Status</div>
+                        <div class="slds-text-heading_small">
+                            {statusLabel}
+                        </div>
+                    </div>
+                </div>
+                <template if:true={description}>
+                    <div class="slds-m-top_small">
+                        <div class="slds-text-title_caps">Description</div>
+                        <div>{description}</div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+            <div class="slds-text-title_caps slds-m-bottom_x-small">
+                Leaderboard
+            </div>
+
+            <template if:true={members}>
+                <div class="slds-scrollable_x">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_fixed-layout">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th scope="col" class="slds-text-align_right">
+                                    <div class="slds-truncate" title="#">#
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Member">
+                                        Member
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Role">
+                                        Role
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Badges">
+                                        Badges
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Streak">
+                                        Streak
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="XP">
+                                        XP
+                                    </div>
+                                </th>
+                                <th scope="col" class="slds-size_3-of-12">
+                                    <div class="slds-truncate" title="XP Chart">
+                                        XP Chart
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Joined">
+                                        Joined
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={members} for:item="row">
+                                <tr key={row.rank} class="slds-hint-parent">
+                                    <td class="slds-text-align_right">
+                                        <div class="slds-truncate" title={row.rank}>
+                                            {row.rank}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title={row.memberName}>
+                                            {row.memberName}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title={row.role}>
+                                            {row.role}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title={row.totalBadges}>
+                                            {row.totalBadges}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title={row.currentStreak}>
+                                            {row.currentStreak}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title={row.xpTotal}>
+                                            {row.xpTotal}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="xp-track">
+                                            <div class="xp-bar" style={row.xpBarStyle}></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate" title={row.joinedDate}>
+                                            {row.joinedDate}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
+

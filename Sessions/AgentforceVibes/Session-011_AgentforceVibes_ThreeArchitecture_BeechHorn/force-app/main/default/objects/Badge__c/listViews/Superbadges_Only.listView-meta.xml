@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Superbadges_Only</fullName>
+    <label>Superbadges Only</label>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Badge_Type__c</field>
+        <operation>equals</operation>
+        <value>Superbadge</value>
+    </filters>
+    <columns>Badge_Title__c</columns>
+    <columns>Badge_Type__c</columns>
+    <columns>Earned_Date__c</columns>
+</ListView>

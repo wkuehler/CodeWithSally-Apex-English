@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quest_Name__c</fullName>
+    <label>Quest Name</label>
+    <type>Text</type>
+    <length>255</length>
+    <required>true</required>
+    <inlineHelpText>The name of this time-bound learning challenge.</inlineHelpText>
+</CustomField>
