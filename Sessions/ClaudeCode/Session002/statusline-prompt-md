@@ -1,0 +1,94 @@
+  I want you to build a custom Claude Code status line — a persistent bar at the bottom of the
+   interface that gives me a real-time dashboard of my session. The status line is a script
+  that Claude Code runs after each assistant message. It receives a JSON object on stdin and
+  prints whatever you want displayed.
+
+  What I Want
+
+  Build a four-row status line that covers limits, token activity, session context, and
+  location at a glance. Use color coding to make high values stand out: green for healthy,
+  yellow for moderate, red for high. Here are the four rows:
+
+  Row 1 — Gauges: Three bracketed gauges showing context window usage, 5-hour rate limit, and
+  7-day rate limit. Each shows a label and a percentage. The rate limit gauges should also
+  show when the window resets (e.g., "4:32p" if it resets today, "Fri 4:32p" if it's further
+  out).
+
+  Row 2 — Tokens: Three bracketed segments showing cumulative input tokens, cumulative output
+  tokens, and cache activity (tokens written to cache this call / tokens read from cache this
+  call). Add a small delta indicator next to each showing the increment from the most recent
+  API call.
+
+  Row 3 — Session: Current model name, effort level (read from a custom effortLevel key in the
+   project or user settings.json file), and elapsed session duration formatted compactly
+  (e.g., 45s, 12m, 1h23m).
+
+  Row 4 — Location: Current working directory (with ~ for the home path), git branch, and
+  Salesforce default org username (read from .sfdx/sfdx-config.json in the working directory
+  if present).
+
+  Data Sources (from the Official Anthropic Status Line Docs)
+
+  The JSON object piped to your script contains these relevant fields:
+
+  - model.display_name — Human-readable model name (e.g., "Sonnet", "Opus")
+  - workspace.current_dir — Full path of the current working directory (preferred over cwd for
+   consistency)
+  - context_window.used_percentage — Pre-calculated percentage of the context window in use;
+  may be null before the first API call, so default to 0
+  - context_window.total_input_tokens — Cumulative input tokens sent across the entire session
+  - context_window.total_output_tokens — Cumulative output tokens generated across the entire
+  session
+  - context_window.current_usage.input_tokens — Input tokens in the most recent API call
+  - context_window.current_usage.output_tokens — Output tokens generated in the most recent
+  API call
+  - context_window.current_usage.cache_creation_input_tokens — Tokens written to cache in the
+  most recent call
+  - context_window.current_usage.cache_read_input_tokens — Tokens read from cache in the most
+  recent call
+  - rate_limits.five_hour.used_percentage — Percent of the 5-hour rolling rate limit consumed
+  (Claude.ai Pro/Max only; absent for API users)
+  - rate_limits.five_hour.resets_at — Unix epoch seconds when the 5-hour window resets
+  - rate_limits.seven_day.used_percentage — Percent of the 7-day rate limit consumed
+  - rate_limits.seven_day.resets_at — Unix epoch seconds when the 7-day window resets
+  - cost.total_duration_ms — Total elapsed milliseconds since the session started
+
+  A few fields to handle carefully: context_window.current_usage is null before the first API
+  call. rate_limits is absent entirely for API-key users (not Claude.ai subscribers). Always
+  provide fallbacks for null and missing fields.
+
+  The effortLevel value in Row 3 is NOT from Claude Code's JSON — read it yourself from the
+  first effortLevel key found in .claude/settings.local.json, then .claude/settings.json in
+  the working directory, then ~/.claude/settings.json. If none found, show "?".
+
+  For the git branch in Row 4, read it directly from the .git/HEAD file by walking up the
+  directory tree — no need to shell out to git.
+
+  For the Salesforce org in Row 4, read the defaultusername field from .sfdx/sfdx-config.json
+  in the working directory. Show only the part before the @ symbol to keep it compact.
+
+  What the Output Should Look Like
+
+  Early in a session, light usage, no Salesforce project:
+  [CTX 4%] [5H 12%] [7D 8% 4:32p]
+  [IN 1,234 (+1,234)] [OUT 312 (+312)] [CACHE +5,000 / 0]
+  Sonnet · LOW · 45s
+  ~/projects/my-app · main
+
+  Mid-session, context climbing, working in a Salesforce project:
+  [CTX 61%] [5H 55%] [7D 41% Fri 9:00a]
+  [IN 48.2k (+3,400)] [OUT 8,900 (+120)] [CACHE +2,000 / 44.1k]
+  Opus · HIGH · 28m
+  ~/projects/resource-hero/main-dev · issue292 · wkuehler
+
+  Late in a long session, context critical, no rate limit data (API user):
+  [CTX 91%] [5H ?] [7D ?]
+  [IN 182.4k (+8,100)] [OUT 24.7k (+850)] [CACHE +6,500 / 158.3k]
+  Opus · MAX · 2h14m
+  ~/projects/resource-hero/main-dev · issue301
+
+  Fresh session, no git repo, no Salesforce org:
+  [CTX 0%] [5H 3%] [7D 1% 2:15p]
+  [IN 0] [OUT 0] [CACHE 0 / 0]
+  Sonnet · ? ·
+  ~/documents/notes
