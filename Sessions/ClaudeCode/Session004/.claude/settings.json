@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": ["Bash(git status)"],
+    "deny": [
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git reset *)",
+      "Bash(git rebase *)",
+      "Bash(git merge *)",
+      "Bash(git pull *)",
+      "Bash(git checkout *)",
+      "Bash(git restore *)",
+      "Bash(git clean *)",
+      "Bash(git rm *)",
+      "Bash(git stash *)",
+      "Bash(git cherry-pick *)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git status*)",
+            "command": "echo \"$(date -Iseconds): git status run\" >> /home/demouser/projects/ClaudeCode/Session4a/git-status-log.md 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
